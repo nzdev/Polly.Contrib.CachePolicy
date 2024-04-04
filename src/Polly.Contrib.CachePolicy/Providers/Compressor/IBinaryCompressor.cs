@@ -11,7 +11,7 @@
         /// <param name="input">Byte array to compress.</param>
         /// <param name="context">The execution context.</param>
         /// <returns>Compressed byte array.</returns>
-        byte[] Compress(byte[] input, Context context);
+        byte[] Compress(byte[] input, ResilienceContext context);
 
         /// <summary>
         /// Decompress byte array.
@@ -19,6 +19,6 @@
         /// <param name="input">Byte array to be decompressed</param>
         /// <param name="context">The execution context.</param>
         /// <returns>Decompressed byte array.</returns>
-        byte[] Decompress(byte[] input, Context context);
+        byte[] Decompress(byte[] input, ResilienceContext context);
     }
 }

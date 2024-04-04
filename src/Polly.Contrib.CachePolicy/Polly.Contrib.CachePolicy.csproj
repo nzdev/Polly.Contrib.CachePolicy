@@ -18,6 +18,7 @@
     <Authors>App vNext</Authors>
     <AssemblyOriginatorKeyFile>..\Polly.Contrib.CachePolicy.snk</AssemblyOriginatorKeyFile>
     <SignAssembly>true</SignAssembly>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <PropertyGroup Label="SourceLink">
     <PublishRepositoryUrl>true</PublishRepositoryUrl>

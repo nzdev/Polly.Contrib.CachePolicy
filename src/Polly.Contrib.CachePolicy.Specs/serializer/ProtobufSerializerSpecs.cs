@@ -24,8 +24,8 @@ namespace Polly.Contrib.CachePolicy.Specs.serializer
             var serializer = new ProtobufSerializer(
                                    new LZ4PicklerBinaryCompressor(loggingProvider.Object),
                                    loggingProvider.Object);
-            var serializedTarget = serializer.SerializeToBytes<SerializationTarget>(target, new Context());
-            var deserializedTarget = serializer.DeserializeFromBytes<SerializationTarget>(serializedTarget, new Context());
+            var serializedTarget = serializer.SerializeToBytes<SerializationTarget>(target, new ResilienceContext());
+            var deserializedTarget = serializer.DeserializeFromBytes<SerializationTarget>(serializedTarget, new ResilienceContext());
 
             Assert.Equal(target.GraceTimeStamp, deserializedTarget.GraceTimeStamp);
             Assert.Equal(target.IsNull, deserializedTarget.IsNull);
@@ -44,8 +44,8 @@ namespace Polly.Contrib.CachePolicy.Specs.serializer
             var serializer = new ProtobufSerializer(
                                                                         new LZ4PicklerBinaryCompressor(loggingProvider.Object),
                                                                         loggingProvider.Object);
-            var serializedTarget = serializer.SerializeToBytes<SerializationTarget>(target, new Context());
-            var deserializedTarget = serializer.DeserializeFromBytes<SerializationTarget>(serializedTarget, new Context());
+            var serializedTarget = serializer.SerializeToBytes<SerializationTarget>(target, new ResilienceContext());
+            var deserializedTarget = serializer.DeserializeFromBytes<SerializationTarget>(serializedTarget, new ResilienceContext());
 
             Assert.Equal(target.GraceTimeStamp, deserializedTarget.GraceTimeStamp);
             Assert.Equal(target.IsNull, deserializedTarget.IsNull);

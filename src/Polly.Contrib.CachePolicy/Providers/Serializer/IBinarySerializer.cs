@@ -14,7 +14,7 @@ namespace Polly.Contrib.CachePolicy.Providers.Serializer
         /// <param name="data">Target to be serialized.</param>
         /// <param name="context">The execution context.</param>
         /// <returns>Serialized byte array.</returns>
-        byte[] SerializeToBytes<TResult>(TResult data, Context context)
+        byte[] SerializeToBytes<TResult>(TResult data, ResilienceContext context)
             where TResult : CacheValue;
 
         /// <summary>
@@ -24,7 +24,7 @@ namespace Polly.Contrib.CachePolicy.Providers.Serializer
         /// <param name="data">Binary representation of object.</param>
         /// <param name="context">The execution context.</param>
         /// <returns>Deserialized object.</returns>
-        TResult DeserializeFromBytes<TResult>(byte[] data, Context context)
+        TResult DeserializeFromBytes<TResult>(byte[] data, ResilienceContext context)
             where TResult : CacheValue;
     }
 }

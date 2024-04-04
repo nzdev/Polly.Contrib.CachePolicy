@@ -52,7 +52,7 @@ namespace Polly.Contrib.CachePolicy.Providers.Cache
         }
 
         /// <inheritdoc/>
-        public async Task<TResult> GetAsync<TResult>(string key, Context context)
+        public async ValueTask<TResult> GetAsync<TResult>(string key, Context context)
             where TResult : CacheValue
         {
             var stopwatch = Stopwatch.StartNew();
@@ -94,7 +94,7 @@ namespace Polly.Contrib.CachePolicy.Providers.Cache
         }
 
         /// <inheritdoc/>
-        public async Task SetAsync<TResult>(string key, TResult value, TimeSpan expirationRelativeToNow, TimeSpan graceTimeRelativeToNow, Context context)
+        public async Task SetAsync<TResult>(string key, TResult value, TimeSpan expirationRelativeToNow, TimeSpan graceTimeRelativeToNow, ResilienceContext context)
             where TResult : CacheValue
         {
             var stopwatch = Stopwatch.StartNew();

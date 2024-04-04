@@ -39,7 +39,7 @@ namespace Polly.Contrib.CachePolicy.Providers.Serializer
         }
 
         /// <inheritdoc/>
-        public string SerializeToString<T>(T data, Context context)
+        public string SerializeToString<T>(T data, ResilienceContext context)
             where T : CacheValue
         {
             var stopwatch = Stopwatch.StartNew();
@@ -56,7 +56,7 @@ namespace Polly.Contrib.CachePolicy.Providers.Serializer
         }
 
         /// <inheritdoc/>
-        public TResult DeserializeFromString<TResult>(string serializedObject, Context context)
+        public TResult DeserializeFromString<TResult>(string serializedObject, ResilienceContext context)
             where TResult : CacheValue
         {
             var decompressed = this.plaintextCompressor.Decompress(serializedObject, context);

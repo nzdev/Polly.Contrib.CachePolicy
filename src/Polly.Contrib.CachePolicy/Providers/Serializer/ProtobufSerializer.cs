@@ -47,7 +47,7 @@ namespace Polly.Contrib.CachePolicy.Providers.Serializer
         }
 
         /// <inheritdoc/>
-        public byte[] SerializeToBytes<T>(T data, Context context)
+        public byte[] SerializeToBytes<T>(T data, ResilienceContext context)
             where T : CacheValue
         {
             using (MemoryStream stream = new MemoryStream())
@@ -69,7 +69,7 @@ namespace Polly.Contrib.CachePolicy.Providers.Serializer
         }
 
         /// <inheritdoc/>
-        public TResult DeserializeFromBytes<TResult>(byte[] serializedObject, Context context)
+        public TResult DeserializeFromBytes<TResult>(byte[] serializedObject, ResilienceContext context)
             where TResult : CacheValue
         {
             var decompressedData = this.binaryCompressor.Decompress(serializedObject, context);

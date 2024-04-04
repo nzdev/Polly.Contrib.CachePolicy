@@ -23,7 +23,7 @@ namespace Polly.Contrib.CachePolicy.Utilities
         /// <param name="context">The Polly execution context.</param>
         /// <param name="cacheKey">Cache key.</param>
         /// <returns>The Polly execution context.</returns>
-        public static Context WithCacheKey(this Context context, string cacheKey)
+        public static Context WithCacheKey(this ResilienceContext context, string cacheKey)
         {
             cacheKey.ThrowIfNullOrWhiteSpace(nameof(cacheKey));
 
@@ -38,7 +38,7 @@ namespace Polly.Contrib.CachePolicy.Utilities
         /// <param name="context">The Polly execution context.</param>
         /// <param name="operationName"></param>
         /// <returns>The Polly execution context.</returns>
-        public static Context WithOperationName(this Context context, string operationName)
+        public static Context WithOperationName(this ResilienceContext context, string operationName)
         {
             operationName.ThrowIfNullOrWhiteSpace(nameof(operationName));
 
@@ -52,7 +52,7 @@ namespace Polly.Contrib.CachePolicy.Utilities
         /// </summary>
         /// <param name="context">The Polly execution context.</param>
         /// <returns>The cache key.</returns>
-        public static string GetCacheKey(this Context context)
+        public static string GetCacheKey(this ResilienceContext context)
         {
             if (context.TryGetValue(CacheKey, out object cacheKey))
             {
@@ -67,7 +67,7 @@ namespace Polly.Contrib.CachePolicy.Utilities
         /// </summary>
         /// <param name="context">The Polly execution context.</param>
         /// <returns>Operation name.</returns>
-        public static string GetOperationName(this Context context)
+        public static string GetOperationName(this ResilienceContext context)
         {
             if (context.TryGetValue(OperationName, out object operationName))
             {

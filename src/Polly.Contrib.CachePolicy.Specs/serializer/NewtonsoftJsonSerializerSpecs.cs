@@ -21,7 +21,7 @@ namespace Polly.Contrib.CachePolicy.Specs.serializer
             var serializer = new NewtonsoftJsonSerializer(
                                             new NoOpPlaintextCompressor(loggingProvider.Object),
                                             loggingProvider.Object);
-            var deserializedObject = serializer.DeserializeFromString<SerializationTarget>(jsonPlaintext, new Context());
+            var deserializedObject = serializer.DeserializeFromString<SerializationTarget>(jsonPlaintext, new ResilienceContext());
             Assert.NotNull(deserializedObject.GraceTimeStamp);
         }
     }

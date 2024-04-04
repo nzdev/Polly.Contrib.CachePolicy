@@ -50,7 +50,7 @@ namespace Polly.Contrib.CachePolicy.Providers.Logging
         }
 
         /// <inheritdoc/>
-        public void OnCacheGet(string key, bool isSuccess, bool isCacheHit, bool isCacheFresh, long latencyInMilliSeconds, Exception failureException, Context context)
+        public void OnCacheGet(string key, bool isSuccess, bool isCacheHit, bool isCacheFresh, long latencyInMilliSeconds, Exception failureException, ResilienceContext context)
         {
             this.metricLogger.LogMetric(
                 this.loggingProviderOptions.MetricNameCacheGetAsyncLatency,
@@ -70,7 +70,7 @@ namespace Polly.Contrib.CachePolicy.Providers.Logging
         }
 
         /// <inheritdoc/>
-        public void OnCacheSet(string key, bool isSuccess, long latencyInMilliSeconds, Exception failureException, Context context)
+        public void OnCacheSet(string key, bool isSuccess, long latencyInMilliSeconds, Exception failureException, ResilienceContext context)
         {
             this.metricLogger.LogMetric(
                 this.loggingProviderOptions.MetricNameCacheSetAsyncLatency,
@@ -88,7 +88,7 @@ namespace Polly.Contrib.CachePolicy.Providers.Logging
         }
 
         /// <inheritdoc/>
-        public void OnBackendGet<TResult>(string key, bool isSuccess, bool isFallbackToCache, long latencyInMilliSeconds, DelegateResult<TResult> delegateFailureOutcome, Context context)
+        public void OnBackendGet<TResult>(string key, bool isSuccess, bool isFallbackToCache, long latencyInMilliSeconds, DelegateResult<TResult> delegateFailureOutcome, ResilienceContext context)
                 where TResult : CacheValue
         {
             this.metricLogger.LogMetric(
@@ -113,7 +113,7 @@ namespace Polly.Contrib.CachePolicy.Providers.Logging
         }
 
         /// <inheritdoc/>
-        public void OnCacheSerialize(string key, string serializationStrategy, long latencyInMilliSeconds, long serializedSize, Context context)
+        public void OnCacheSerialize(string key, string serializationStrategy, long latencyInMilliSeconds, long serializedSize, ResilienceContext context)
         {
             this.metricLogger.LogMetric(
                 this.loggingProviderOptions.MetricNameCacheSerializeLatency,
@@ -135,7 +135,7 @@ namespace Polly.Contrib.CachePolicy.Providers.Logging
         }
 
         /// <inheritdoc/>
-        public void OnCacheDeserialize(string key, string serializationStrategy, long latencyInMilliSeconds, Context context)
+        public void OnCacheDeserialize(string key, string serializationStrategy, long latencyInMilliSeconds, ResilienceContext context)
         {
             this.metricLogger.LogMetric(
                 this.loggingProviderOptions.MetricNameCacheDeserializeLatency,
@@ -148,7 +148,7 @@ namespace Polly.Contrib.CachePolicy.Providers.Logging
         }
 
         /// <inheritdoc/>
-        public void OnCacheCompress(string key, string compressionStrategy, long latencyInMilliSeconds, long compressedSize, Context context)
+        public void OnCacheCompress(string key, string compressionStrategy, long latencyInMilliSeconds, long compressedSize, ResilienceContext context)
         {
             this.metricLogger.LogMetric(
                 this.loggingProviderOptions.MetricNameCacheCompressLatency,

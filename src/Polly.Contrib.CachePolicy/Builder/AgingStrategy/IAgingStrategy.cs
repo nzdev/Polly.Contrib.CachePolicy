@@ -15,7 +15,7 @@ namespace Polly.Contrib.CachePolicy.Builder.AgingStrategy
         /// <param name="result">A result which is returned by the <see cref="AsyncCachePolicy{TResult}"/>.</param>
         /// <param name="context">The execution context.</param>
         /// <returns>Grace duration relative to now after which the cached item will no longer be considered fresh and will only used for fall back to cache purpose.</returns>
-        TimeSpan GetGraceRelativeToNow(TResult result, Context context);
+        TimeSpan GetGraceRelativeToNow(TResult result, ResilienceContext context);
 
         /// <summary>
         /// Get expiration timespan relative to now for a given result.
@@ -23,6 +23,6 @@ namespace Polly.Contrib.CachePolicy.Builder.AgingStrategy
         /// <param name="result">A result which is returned by the <see cref="AsyncCachePolicy{TResult}"/>.</param>
         /// <param name="context">The execution context.</param>
         /// <returns>Expiration duration relative to now after which the cached item will be removed.</returns>
-        TimeSpan GetExpirationRelativeToNow(TResult result, Context context);
+        TimeSpan GetExpirationRelativeToNow(TResult result, ResilienceContext context);
     }
 }

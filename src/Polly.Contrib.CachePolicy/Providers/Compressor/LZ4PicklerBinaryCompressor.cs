@@ -27,7 +27,7 @@ namespace Polly.Contrib.CachePolicy.Providers.Compressor
         }
 
         /// <inheritdoc/>
-        public byte[] Compress(byte[] input, Context context)
+        public byte[] Compress(byte[] input, ResilienceContext context)
         {
             var stopwatch = Stopwatch.StartNew();
             var compressedByteArray = LZ4Pickler.Pickle(input);
@@ -42,7 +42,7 @@ namespace Polly.Contrib.CachePolicy.Providers.Compressor
         }
 
         /// <inheritdoc/>
-        public byte[] Decompress(byte[] input, Context context)
+        public byte[] Decompress(byte[] input, ResilienceContext context)
         {
             var stopwatch = Stopwatch.StartNew();
             var decompressedData = LZ4Pickler.Unpickle(input);

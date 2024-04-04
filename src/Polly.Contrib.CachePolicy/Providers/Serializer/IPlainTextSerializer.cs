@@ -13,7 +13,7 @@ namespace Polly.Contrib.CachePolicy.Providers.Serializer
         /// <param name="data">Target to be serialized.</param>
         /// <param name="context">The execution context.</param>
         /// <returns>Serialized string.</returns>
-        string SerializeToString<T>(T data, Context context)
+        string SerializeToString<T>(T data, ResilienceContext context)
             where T : CacheValue;
 
         /// <summary>
@@ -23,7 +23,7 @@ namespace Polly.Contrib.CachePolicy.Providers.Serializer
         /// <param name="data">Plaintext representation of object.</param>
         /// <param name="context">The execution context.</param>
         /// <returns>Deserialized object.</returns>
-        TResult DeserializeFromString<TResult>(string data, Context context)
+        TResult DeserializeFromString<TResult>(string data, ResilienceContext context)
             where TResult : CacheValue;
     }
 }

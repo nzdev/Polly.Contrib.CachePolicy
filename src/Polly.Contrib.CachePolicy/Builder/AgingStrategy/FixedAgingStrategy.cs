@@ -24,13 +24,13 @@ namespace Polly.Contrib.CachePolicy.Builder.AgingStrategy
         }
 
         /// <inheritdoc/>
-        public TimeSpan GetGraceRelativeToNow(TResult result, Context context)
+        public TimeSpan GetGraceRelativeToNow(TResult result, ResilienceContext context)
         {
             return this.fixedAgingStrategyOptions.GraceRelativeToNow;
         }
 
         /// <inheritdoc/>
-        public TimeSpan GetExpirationRelativeToNow(TResult result, Context context)
+        public TimeSpan GetExpirationRelativeToNow(TResult result, ResilienceContext context)
         {
             return this.fixedAgingStrategyOptions.ExpirationRelativeToNow;
         }

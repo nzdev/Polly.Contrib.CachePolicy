@@ -72,9 +72,9 @@ namespace Polly.Contrib.CachePolicy
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <param name="continueOnCapturedContext">Whether to continue on captured context.</param>
         /// <returns>Task of type which the data is retrieved.</returns>
-        protected override async Task<TResult> ImplementationAsync(
-                        Func<Context, CancellationToken, Task<TResult>> backendGet,
-                        Context context,
+        protected override async ValueTask<TResult> ImplementationAsync(
+                        Func<ResilienceContext, CancellationToken, ValueTask<TResult>> backendGet,
+                        ResilienceContext context,
                         CancellationToken cancellationToken,
                         bool continueOnCapturedContext)
         {

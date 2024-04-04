@@ -26,7 +26,7 @@ namespace Polly.Contrib.CachePolicy.Providers.Compressor
         }
 
         /// <inheritdoc/>
-        public string Compress(string input, Context context)
+        public string Compress(string input, ResilienceContext context)
         {
             var stopwatch = Stopwatch.StartNew();
             this.loggingProvider.OnCacheCompress(
@@ -40,7 +40,7 @@ namespace Polly.Contrib.CachePolicy.Providers.Compressor
         }
 
         /// <inheritdoc/>
-        public string Decompress(string input, Context context)
+        public string Decompress(string input, ResilienceContext context)
         {
             var stopwatch = Stopwatch.StartNew();
             this.loggingProvider.OnCacheDecompress(

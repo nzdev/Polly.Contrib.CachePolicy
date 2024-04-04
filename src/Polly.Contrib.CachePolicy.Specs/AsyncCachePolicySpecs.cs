@@ -69,7 +69,7 @@ namespace Polly.Contrib.CachePolicy.Tests
                 {
                     await TaskHelper.EmptyTask.ConfigureAwait(false);
                     return this.cacheableSuccessBackendValue;
-                }, new Context().WithCacheKey(CacheKey)
+                }, new ResilienceContext().WithCacheKey(CacheKey)
                             .WithOperationName(OperationName));
 
             Assert.Equal(this.cacheableSuccessBackendValue.Property, result.Property);
@@ -88,7 +88,7 @@ namespace Polly.Contrib.CachePolicy.Tests
                                                             await TaskHelper.EmptyTask.ConfigureAwait(false);
                                                             throw new TimeoutException("time out exception");
                                                         },
-                                                        new Context().WithCacheKey(CacheKey)
+                                                        new ResilienceContext().WithCacheKey(CacheKey)
                                                                      .WithOperationName(OperationName));
             }
             catch (TimeoutException timeoutException)
@@ -108,7 +108,7 @@ namespace Polly.Contrib.CachePolicy.Tests
                     await TaskHelper.EmptyTask.ConfigureAwait(false);
                     return this.cacheableSuccessBackendValue;
                 },
-                new Context().WithCacheKey(CacheKey)
+                new ResilienceContext().WithCacheKey(CacheKey)
                              .WithOperationName(OperationName));
 
             Assert.Equal(this.cacheableSuccessBackendValue.Property, result.Property);
@@ -127,7 +127,7 @@ namespace Polly.Contrib.CachePolicy.Tests
                         await TaskHelper.EmptyTask.ConfigureAwait(false);
                         throw new InvalidOperationException("error message");
                     },
-                    new Context().WithCacheKey(CacheKey)
+                    new ResilienceContext().WithCacheKey(CacheKey)
                                  .WithOperationName(OperationName));
             }
             catch (InvalidOperationException invalidOperationException)
@@ -147,7 +147,7 @@ namespace Polly.Contrib.CachePolicy.Tests
                     await TaskHelper.EmptyTask.ConfigureAwait(false);
                     return this.errorBackendValue;
                 },
-                new Context().WithCacheKey(CacheKey)
+                new ResilienceContext().WithCacheKey(CacheKey)
                              .WithOperationName(OperationName));
 
             Assert.Equal(result.Property, this.errorBackendValue.Property);
@@ -164,7 +164,7 @@ namespace Polly.Contrib.CachePolicy.Tests
                     await TaskHelper.EmptyTask.ConfigureAwait(false);
                     return this.cacheableSuccessBackendValue;
                 },
-                new Context().WithCacheKey(CacheKey)
+                new ResilienceContext().WithCacheKey(CacheKey)
                              .WithOperationName(OperationName));
 
             Assert.Equal(this.freshClassToCacheValue.Property, result.Property);
@@ -181,7 +181,7 @@ namespace Polly.Contrib.CachePolicy.Tests
                     await TaskHelper.EmptyTask.ConfigureAwait(false);
                     return this.errorBackendValue;
                 },
-                new Context().WithCacheKey(CacheKey)
+                new ResilienceContext().WithCacheKey(CacheKey)
                              .WithOperationName(OperationName));
 
             Assert.Equal(this.staleClassToCacheValue.Property, result.Property);
@@ -198,7 +198,7 @@ namespace Polly.Contrib.CachePolicy.Tests
                     await TaskHelper.EmptyTask.ConfigureAwait(false);
                     return this.cacheableSuccessBackendValue;
                 },
-                new Context().WithCacheKey(CacheKey)
+                new ResilienceContext().WithCacheKey(CacheKey)
                              .WithOperationName(OperationName));
 
             Assert.Equal(cacheableSuccessBackendValue.Property, result.Property);
@@ -215,7 +215,7 @@ namespace Polly.Contrib.CachePolicy.Tests
                     await TaskHelper.EmptyTask.ConfigureAwait(false);
                     throw new TimeoutException();
                 },
-                new Context().WithCacheKey(CacheKey)
+                new ResilienceContext().WithCacheKey(CacheKey)
                              .WithOperationName(OperationName));
 
             Assert.Equal(this.staleClassToCacheValue.Property, result.Property);
@@ -232,14 +232,14 @@ namespace Polly.Contrib.CachePolicy.Tests
                     await TaskHelper.EmptyTask.ConfigureAwait(false);
                     return this.cacheableSuccessBackendValue;
                 },
-                new Context().WithCacheKey(CacheKey)
+                new ResilienceContext().WithCacheKey(CacheKey)
                              .WithOperationName(OperationName));
 
             Assert.Equal(this.cacheableSuccessBackendValue.Property, result.Property);
 
             Thread.Sleep(2000);
             this.cacheProvider.Verify(
-                provider => provider.SetAsync<ClassToCache>(It.IsAny<string>(), It.IsAny<ClassToCache>(), It.IsAny<TimeSpan>(), It.IsAny<TimeSpan>(), It.IsAny<Context>()),
+                provider => provider.SetAsync<ClassToCache>(It.IsAny<string>(), It.IsAny<ClassToCache>(), It.IsAny<TimeSpan>(), It.IsAny<TimeSpan>(), It.IsAny<ResilienceContext>()),
                 Times.Once);
         }
 
@@ -256,7 +256,7 @@ namespace Polly.Contrib.CachePolicy.Tests
                         await TaskHelper.EmptyTask.ConfigureAwait(false);
                         throw new InvalidOperationException("invalid operation exception");
                     },
-                    new Context().WithCacheKey(CacheKey)
+                    new ResilienceContext().WithCacheKey(CacheKey)
                                  .WithOperationName(OperationName));
             }
             catch (InvalidOperationException invalidOperationException)
@@ -276,7 +276,7 @@ namespace Polly.Contrib.CachePolicy.Tests
                     await TaskHelper.EmptyTask.ConfigureAwait(false);
                     return this.uncacheableSuccessBackendValue;
                 },
-                new Context().WithCacheKey(CacheKey)
+                new ResilienceContext().WithCacheKey(CacheKey)
                              .WithOperationName(OperationName));
 
             Assert.Equal(this.uncacheableSuccessBackendValue.Property, result.Property);
@@ -287,13 +287,13 @@ namespace Polly.Contrib.CachePolicy.Tests
             this.cacheProvider.Invocations.Clear();
             this.agingStrategy.Invocations.Clear();
 
-            this.cacheProvider.Setup(provider => provider.GetAsync<ClassToCache>(It.IsAny<string>(), It.IsAny<Context>()))
+            this.cacheProvider.Setup(provider => provider.GetAsync<ClassToCache>(It.IsAny<string>(), It.IsAny<ResilienceContext>()))
                          .ReturnsAsync(valueToReturnFromClassToCache);
-            this.cacheProvider.Setup(provider => provider.SetAsync<ClassToCache>(It.IsAny<string>(), It.IsAny<ClassToCache>(), It.IsAny<TimeSpan>(), It.IsAny<TimeSpan>(), It.IsAny<Context>()))
+            this.cacheProvider.Setup(provider => provider.SetAsync<ClassToCache>(It.IsAny<string>(), It.IsAny<ClassToCache>(), It.IsAny<TimeSpan>(), It.IsAny<TimeSpan>(), It.IsAny<ResilienceContext>()))
                          .Returns(Task.CompletedTask);
-            this.agingStrategy.Setup(agingStrategy => agingStrategy.GetGraceRelativeToNow(It.IsAny<ClassToCache>(), It.IsAny<Context>()))
+            this.agingStrategy.Setup(agingStrategy => agingStrategy.GetGraceRelativeToNow(It.IsAny<ClassToCache>(), It.IsAny<ResilienceContext>()))
                               .Returns(TimeSpan.FromDays(1));
-            this.agingStrategy.Setup(agingStrategy => agingStrategy.GetExpirationRelativeToNow(It.IsAny<ClassToCache>(), It.IsAny<Context>()))
+            this.agingStrategy.Setup(agingStrategy => agingStrategy.GetExpirationRelativeToNow(It.IsAny<ClassToCache>(), It.IsAny<ResilienceContext>()))
                               .Returns(TimeSpan.FromDays(5));
 
             var asyncCachePolicy = AsyncCachePolicy<ClassToCache>
