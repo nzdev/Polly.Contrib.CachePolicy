@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics;
 using Polly.Contrib.CachePolicy.Providers.Logging;
 using Polly.Contrib.CachePolicy.Utilities;
+using Polly.Contrib.CachePolicy.Utils;
 
 namespace Polly.Contrib.CachePolicy.Providers.Compressor
 {
@@ -20,7 +21,7 @@ namespace Polly.Contrib.CachePolicy.Providers.Compressor
         /// <param name="loggingProvider">Provides the contract to logging <see cref="AsyncCachePolicy{TResult}"/> operations.</param>
         public NoOpPlaintextCompressor(ILoggingProvider loggingProvider)
         {
-            loggingProvider.ThrowIfNull(nameof(loggingProvider));
+            Guard.NotNull(loggingProvider, nameof(loggingProvider));
 
             this.loggingProvider = loggingProvider;
         }

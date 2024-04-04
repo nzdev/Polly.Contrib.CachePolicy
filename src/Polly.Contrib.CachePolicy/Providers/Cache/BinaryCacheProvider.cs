@@ -8,6 +8,7 @@ using Polly.Contrib.CachePolicy.Models;
 using Polly.Contrib.CachePolicy.Providers.Logging;
 using Polly.Contrib.CachePolicy.Providers.Serializer;
 using Polly.Contrib.CachePolicy.Utilities;
+using Polly.Contrib.CachePolicy.Utils;
 
 namespace Polly.Contrib.CachePolicy.Providers.Cache
 {
@@ -42,9 +43,9 @@ namespace Polly.Contrib.CachePolicy.Providers.Cache
                         IBinarySerializer binarySerializer,
                         ILoggingProvider loggingProvider)
         {
-            distributedCache.ThrowIfNull(nameof(distributedCache));
-            binarySerializer.ThrowIfNull(nameof(binarySerializer));
-            loggingProvider.ThrowIfNull(nameof(loggingProvider));
+            Guard.NotNull(distributedCache, nameof(distributedCache));
+            Guard.NotNull(binarySerializer, nameof(binarySerializer));
+            Guard.NotNull(loggingProvider, nameof(loggingProvider));
 
             this.distributedCache = distributedCache;
             this.binarySerializer = binarySerializer;

@@ -3,7 +3,7 @@
 namespace Polly.Contrib.CachePolicy.Utilities
 {
     /// <summary>
-    /// Extension methods for <see cref="Context"/>.
+    /// Extension methods for <see cref="ResilienceContext"/>.
     /// </summary>
     public static class ContextExtensions
     {
@@ -23,7 +23,7 @@ namespace Polly.Contrib.CachePolicy.Utilities
         /// <param name="context">The Polly execution context.</param>
         /// <param name="cacheKey">Cache key.</param>
         /// <returns>The Polly execution context.</returns>
-        public static Context WithCacheKey(this ResilienceContext context, string cacheKey)
+        public static ResilienceContext WithCacheKey(this ResilienceContext context, string cacheKey)
         {
             cacheKey.ThrowIfNullOrWhiteSpace(nameof(cacheKey));
 
@@ -38,7 +38,7 @@ namespace Polly.Contrib.CachePolicy.Utilities
         /// <param name="context">The Polly execution context.</param>
         /// <param name="operationName"></param>
         /// <returns>The Polly execution context.</returns>
-        public static Context WithOperationName(this ResilienceContext context, string operationName)
+        public static ResilienceContext WithOperationName(this ResilienceContext context, string operationName)
         {
             operationName.ThrowIfNullOrWhiteSpace(nameof(operationName));
 

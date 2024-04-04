@@ -4,6 +4,7 @@ using Polly.Contrib.CachePolicy.Models;
 using Polly.Contrib.CachePolicy.Providers.Compressor;
 using Polly.Contrib.CachePolicy.Providers.Logging;
 using Polly.Contrib.CachePolicy.Utilities;
+using Polly.Contrib.CachePolicy.Utils;
 
 namespace Polly.Contrib.CachePolicy.Providers.Serializer
 {
@@ -31,8 +32,8 @@ namespace Polly.Contrib.CachePolicy.Providers.Serializer
             IPlaintextCompressor plaintextCompressor,
             ILoggingProvider loggingProvider)
         {
-            plaintextCompressor.ThrowIfNull(nameof(plaintextCompressor));
-            loggingProvider.ThrowIfNull(nameof(loggingProvider));
+            Guard.NotNull(plaintextCompressor, nameof(plaintextCompressor));
+            Guard.NotNull(loggingProvider, nameof(loggingProvider));
 
             this.plaintextCompressor = plaintextCompressor;
             this.loggingProvider = loggingProvider;

@@ -6,6 +6,7 @@ using Polly.Contrib.CachePolicy.Providers.Compressor;
 using Polly.Contrib.CachePolicy.Providers.Logging;
 using Polly.Contrib.CachePolicy.Providers.Serializer.Model;
 using Polly.Contrib.CachePolicy.Utilities;
+using Polly.Contrib.CachePolicy.Utils;
 using ProtoBuf.Meta;
 
 namespace Polly.Contrib.CachePolicy.Providers.Serializer
@@ -34,8 +35,8 @@ namespace Polly.Contrib.CachePolicy.Providers.Serializer
             IBinaryCompressor binaryCompressor,
             ILoggingProvider loggingProvider)
         {
-            binaryCompressor.ThrowIfNull(nameof(binaryCompressor));
-            loggingProvider.ThrowIfNull(nameof(loggingProvider));
+            Guard.NotNull(binaryCompressor, nameof(binaryCompressor));
+            Guard.NotNull(loggingProvider, nameof(loggingProvider));
 
             if (!RuntimeTypeModel.Default.CanSerialize(typeof(DateTimeOffset)))
             {

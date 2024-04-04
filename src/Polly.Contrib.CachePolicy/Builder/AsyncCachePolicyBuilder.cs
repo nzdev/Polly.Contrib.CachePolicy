@@ -5,6 +5,7 @@ using Polly.Contrib.CachePolicy.Models;
 using Polly.Contrib.CachePolicy.Providers.Cache;
 using Polly.Contrib.CachePolicy.Providers.Logging;
 using Polly.Contrib.CachePolicy.Utilities;
+using Polly.Contrib.CachePolicy.Utils;
 
 namespace Polly.Contrib.CachePolicy.Builder
 {
@@ -55,8 +56,8 @@ namespace Polly.Contrib.CachePolicy.Builder
             ICacheProvider cacheProvider,
             ILoggingProvider loggingProvider)
         {
-            cacheProvider.ThrowIfNull(nameof(cacheProvider));
-            loggingProvider.ThrowIfNull(nameof(loggingProvider));
+            Guard.NotNull(cacheProvider, nameof(cacheProvider));
+            Guard.NotNull(loggingProvider, nameof(loggingProvider));
 
             this.isPolicyEnabled = isPolicyEnabled;
             this.agingStrategy = agingStrategy;

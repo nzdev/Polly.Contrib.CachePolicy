@@ -6,6 +6,7 @@ using Microsoft.Extensions.Logging;
 using Polly;
 using Polly.Contrib.CachePolicy.Models;
 using Polly.Contrib.CachePolicy.Utilities;
+using Polly.Contrib.CachePolicy.Utils;
 
 namespace Polly.Contrib.CachePolicy.Providers.Logging
 {
@@ -40,9 +41,9 @@ namespace Polly.Contrib.CachePolicy.Providers.Logging
                 IOperationalMetricLogger metricLogger,
                 ILogger<LoggingProvider> logger)
         {
-            loggingProviderOptions.ThrowIfNull(nameof(loggingProviderOptions));
-            metricLogger.ThrowIfNull(nameof(metricLogger));
-            logger.ThrowIfNull(nameof(logger));
+            Guard.NotNull(loggingProviderOptions, nameof(loggingProviderOptions));
+            Guard.NotNull(metricLogger, nameof(metricLogger));
+            Guard.NotNull(logger, nameof(logger));
 
             this.loggingProviderOptions = loggingProviderOptions;
             this.metricLogger = metricLogger;
@@ -170,7 +171,7 @@ namespace Polly.Contrib.CachePolicy.Providers.Logging
         }
 
         /// <inheritdoc/>
-        public void OnCacheDecompress(string key, string compressionStrategy, long latencyInMilliSeconds, Context context)
+        public void OnCacheDecompress(string key, string compressionStrategy, long latencyInMilliSeconds, ResilienceContext context)
         {
             this.metricLogger.LogMetric(
                 this.loggingProviderOptions.MetricNameCacheDecompressLatency,

@@ -8,6 +8,7 @@ using Polly.Contrib.CachePolicy.Models;
 using Polly.Contrib.CachePolicy.Providers.Logging;
 using Polly.Contrib.CachePolicy.Providers.Serializer;
 using Polly.Contrib.CachePolicy.Utilities;
+using Polly.Contrib.CachePolicy.Utils;
 
 namespace Polly.Contrib.CachePolicy.Providers.Cache
 {
@@ -42,9 +43,9 @@ namespace Polly.Contrib.CachePolicy.Providers.Cache
                         IPlainTextSerializer plainTextSerializer,
                         ILoggingProvider loggingProvider)
         {
-            distributedCache.ThrowIfNull(nameof(distributedCache));
-            plainTextSerializer.ThrowIfNull(nameof(plainTextSerializer));
-            loggingProvider.ThrowIfNull(nameof(loggingProvider));
+            Guard.NotNull(distributedCache, nameof(distributedCache));
+            Guard.NotNull(plainTextSerializer, nameof(plainTextSerializer));
+            Guard.NotNull(loggingProvider, nameof(loggingProvider));
 
             this.distributedCache = distributedCache;
             this.plainTextSerializer = plainTextSerializer;
@@ -52,7 +53,7 @@ namespace Polly.Contrib.CachePolicy.Providers.Cache
         }
 
         /// <inheritdoc/>
-        public async ValueTask<TResult> GetAsync<TResult>(string key, Context context)
+        public async ValueTask<TResult> GetAsync<TResult>(string key, ResilienceContext context)
             where TResult : CacheValue
         {
             var stopwatch = Stopwatch.StartNew();
